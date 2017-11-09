@@ -23,8 +23,7 @@
 You can easily install xclint with Homebrew:
 
 ```
-brew tap xcodeswift/xclint git@github.com:xcodeswift/xclint.git
-brew install xclint
+brew tap xcodeswift/xclint git@github.com:xcodeswift/xclint.git && brew install xclint
 ```
 
 You can also easily run the tool using [🌱 Mint](https://github.com/yonaskolb/mint):
