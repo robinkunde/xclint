@@ -1,5 +1,10 @@
 🚀 Check out the guidelines [here](https://github.com/xcodeswift/contributors/blob/master/CHANGELOG_GUIDELINES.md)
 
+## 0.2.0 - (next version)
+
+### Added
+- Add Danger  by @pepibumur
+
 ## 0.1.0
 
 ### Added
