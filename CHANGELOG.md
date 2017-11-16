@@ -3,7 +3,7 @@
 ## 0.2.0 - (next version)
 
 ### Added
-- Add Danger  by @pepibumur
+- Add Danger https://github.com/xcodeswift/xclint/pull/24 by @pepibumur
 
 ## 0.1.0
 
