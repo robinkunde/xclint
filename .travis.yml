@@ -4,6 +4,8 @@ language: generic
 osx_image: xcode9.1
 install:
 - bundle install
+before_script:
+- bundle exec danger
 script:
 - bundle exec rake ci
 after_success:
