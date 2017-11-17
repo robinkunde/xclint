@@ -4,6 +4,7 @@
 
 ### Added
 - Add Danger https://github.com/xcodeswift/xclint/pull/24 by @pepibumur
+- Formula update automation https://github.com/xcodeswift/xclint/pull/26 by @pepibumur
 
 ## 0.1.0
 
