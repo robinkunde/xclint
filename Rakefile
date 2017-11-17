@@ -39,6 +39,29 @@ def print(message)
   puts message.colorize(:yellow)
 end
 
+def get_archive_url(version)
+  'https://github.com/xcodeswift/xclint/archive/' + "#{version}" + '.tar.gz'
+end
+
+def download_archive(url)
+  # follow link, output errors, no progress meter
+  `curl -LSs #{url} -o xclint.tar.gz`
+end
+
+def get_checksum
+  `shasum -a 256 xclint.tar.gz | awk '{printf $1}'`
+end
+
+def update_formula(version)
+  path = 'Formula/xclint.rb'
+  archive_url = get_archive_url(version)
+  download_archive(archive_url)
+  newSha = %Q{"#{get_checksum}"}
+  newUrl = %Q{"#{archive_url}"}
+  `sed -i "" 's|url .*$|url #{newUrl}|' #{path}`
+  `sed -i "" 's|sha256 .*$|sha256 #{newSha}|' #{path}`
+end
+
 ### TASKS ###
 
 desc "Removes the build folder"
@@ -67,6 +90,19 @@ task :release => [:clean] do
   version = next_version
   bump_to_version(current_version, next_version)
   print "> Commit created and tagged with version: #{version}"
+end
+
+desc "Updates the Homebrew Formula to the values of the latest release. Creates a commit and pushes to the repository"
+task :update_formula do
+  version = current_version
+  update_formula(version)
+  print "> Updated formula to version: #{version}"
+  `rm xclint.tar.gz`
+  `git add Formula/xclint.rb`
+  `git commit -m "[release/#{version}] Update Formula"`
+  print "> Pushing to release/#{version}"
+  `git push origin release/#{version}`
+  print "> Commit created and pushed to repository"
 end
 
 task :docs do
