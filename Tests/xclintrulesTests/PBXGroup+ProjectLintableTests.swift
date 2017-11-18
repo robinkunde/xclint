@@ -10,7 +10,7 @@ final class PBXGroup_ProjectLintableTests: XCTestCase {
         let subject = PBXGroup(reference: "ref", children: ["child"])
         let project = PBXProj(objectVersion: 0, rootObject: "1")
         let got = subject.lint(project: project)
-        let expected = LintError.missingReference(objectType: "PBXGroup", objectReference: "ref", missingReference: "PBXFileReference/PBXGroup/PBXVariantGroup<child>")
+        let expected = LintError.missingReference(objectType: "PBXGroup", objectReference: "ref", missingReference: "PBXFileReference/PBXGroup/PBXVariantGroup/PBXVersionGroup<child>")
         XCTAssertEqual(got.first, expected)
     }
     

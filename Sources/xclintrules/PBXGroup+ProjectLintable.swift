@@ -18,11 +18,12 @@ extension PBXGroup: ProjectLintable {
             .flatMap { (childReference) -> LintError? in
                 let groupExists = project.groups.contains(reference: childReference)
                 let variantGroupExists = project.variantGroups.contains(reference: childReference)
+                let versionGroupExists = project.versionGroups.contains(reference: childReference)
                 let fileReferenceExists = project.fileReferences.contains(reference: childReference)
-                if groupExists || variantGroupExists || fileReferenceExists { return nil }
+                if groupExists || variantGroupExists || fileReferenceExists || versionGroupExists { return nil }
                 return LintError.missingReference(objectType: String(describing: type(of: self)),
                                                   objectReference: reference,
-                                                  missingReference: "PBXFileReference/PBXGroup/PBXVariantGroup<\(childReference)>")
+                                                  missingReference: "PBXFileReference/PBXGroup/PBXVariantGroup/PBXVersionGroup<\(childReference)>")
             }
     }
     

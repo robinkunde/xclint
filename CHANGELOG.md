@@ -2,6 +2,9 @@
 
 ## 0.2.0 - (next version)
 
+### Fixed
+- `PBXGroup` linting failing when it referenced version groups https://github.com/xcodeswift/xclint/pull/25 by @pepibumur
+
 ### Added
 - Add Danger https://github.com/xcodeswift/xclint/pull/24 by @pepibumur
 - Formula update automation https://github.com/xcodeswift/xclint/pull/26 by @pepibumur
