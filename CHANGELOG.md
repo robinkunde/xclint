@@ -8,6 +8,7 @@
 ### Added
 - Add Danger https://github.com/xcodeswift/xclint/pull/24 by @pepibumur
 - Formula update automation https://github.com/xcodeswift/xclint/pull/26 by @pepibumur
+- Update to latest xcproj version (1.7.0) https://github.com/xcodeswift/xclint/pull/28 by @rahul-malik
 
 ## 0.1.0
 
