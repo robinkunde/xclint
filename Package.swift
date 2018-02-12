@@ -5,8 +5,8 @@ import PackageDescription
 let package = Package(
     name: "xclint",
     dependencies: [
-      .package(url: "https://github.com/kylef/Commander.git", .upToNextMinor(from: "0.6.0")),
-      .package(url: "https://github.com/kylef/PathKit.git", .upToNextMinor(from: "0.8.0")),
+      .package(url: "https://github.com/kylef/Commander.git", .upToNextMinor(from: "0.8.0")),
+      .package(url: "https://github.com/kylef/PathKit.git", .upToNextMinor(from: "0.9.0")),
       .package(url: "https://github.com/xcodeswift/xcproj.git", .upToNextMinor(from: "4.0.0")),
       .package(url: "https://github.com/onevcat/Rainbow", .upToNextMinor(from: "3.0.0"))
     ],
