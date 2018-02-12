@@ -5,9 +5,9 @@ extension PBXBuildFile: ProjectLintable {
     
     // MARK: - Public
     
-    public func lint(project: PBXProj) -> [LintError] {
+    public func lint(project: PBXProj, reference: String) -> [LintError] {
         var errors: [LintError] = []
-        if let fileRefError = lintFileRef(project: project) {
+        if let fileRefError = lintFileRef(project: project, reference: reference) {
             errors.append(fileRefError)
         }
         return errors
@@ -15,9 +15,9 @@ extension PBXBuildFile: ProjectLintable {
     
     // MARK: - Fileprivate
     
-    fileprivate func lintFileRef(project: PBXProj) -> LintError? {
+    fileprivate func lintFileRef(project: PBXProj, reference: String) -> LintError? {
         if let fileRef = fileRef {
-            let exists = project.fileReferences.contains(reference: fileRef)
+            let exists = project.objects.fileReferences.contains(reference: fileRef)
             if exists { return nil }
             return LintError.missingReference(objectType: String(describing: type(of: self)),
                                               objectReference: reference,

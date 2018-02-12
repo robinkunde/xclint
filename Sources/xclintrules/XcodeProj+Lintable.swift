@@ -6,15 +6,16 @@ extension XcodeProj: Lintable {
     
     public func lint() -> [LintError] {
         var errors: [LintError] = []
-        errors.append(contentsOf: pbxproj.objects.buildFiles.values.flatMap({ $0.lint(project: pbxproj) }))
-        errors.append(contentsOf: pbxproj.objects.aggregateTargets.values.flatMap({ $0.lint(project: pbxproj) }))
-        errors.append(contentsOf: pbxproj.objects.nativeTargets.values.flatMap({ $0.lint(project: pbxproj) }))
-        errors.append(contentsOf: pbxproj.objects.containerItemProxies.values.flatMap({ $0.lint(project: pbxproj) }))
-        errors.append(contentsOf: pbxproj.objects.groups.values.flatMap({ $0.lint(project: pbxproj) }))
-        errors.append(contentsOf: pbxproj.objects.configurationLists.values.flatMap({ $0.lint(project: pbxproj) }))
-        errors.append(contentsOf: pbxproj.objects.variantGroups.values.flatMap({ $0.lint(project: pbxproj) }))
-        errors.append(contentsOf: pbxproj.objects.targetDependencies.values.flatMap({ $0.lint(project: pbxproj) }))
-        errors.append(contentsOf: pbxproj.objects.projects.values.flatMap({ $0.lint(project: pbxproj) }))
+
+        errors.append(contentsOf: pbxproj.objects.buildFiles.flatMap({ $1.lint(project: pbxproj, reference: $0) }))
+        errors.append(contentsOf: pbxproj.objects.aggregateTargets.flatMap({ $1.lint(project: pbxproj, reference: $0) }))
+        errors.append(contentsOf: pbxproj.objects.nativeTargets.flatMap({ $1.lint(project: pbxproj, reference: $0) }))
+        errors.append(contentsOf: pbxproj.objects.containerItemProxies.flatMap({ $1.lint(project: pbxproj, reference: $0) }))
+        errors.append(contentsOf: pbxproj.objects.groups.flatMap({ $1.lint(project: pbxproj, reference: $0) }))
+        errors.append(contentsOf: pbxproj.objects.configurationLists.flatMap({ $1.lint(project: pbxproj, reference: $0) }))
+        errors.append(contentsOf: pbxproj.objects.variantGroups.flatMap({ $1.lint(project: pbxproj, reference: $0) }))
+        errors.append(contentsOf: pbxproj.objects.targetDependencies.flatMap({ $1.lint(project: pbxproj, reference: $0) }))
+        errors.append(contentsOf: pbxproj.objects.projects.flatMap({ $1.lint(project: pbxproj, reference: $0) }))
         return errors
     }
 }

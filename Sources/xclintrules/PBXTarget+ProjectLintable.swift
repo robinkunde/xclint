@@ -5,14 +5,14 @@ extension PBXTarget: ProjectLintable {
     
     // MARK: - Public
     
-    public func lint(project: PBXProj) -> [LintError] {
+    public func lint(project: PBXProj, reference: String) -> [LintError] {
         var errors: [LintError] = []
-        if let buildConfigurationListError = lintConfigurationList(project: project) {
+        if let buildConfigurationListError = lintConfigurationList(project: project, reference: reference) {
             errors.append(buildConfigurationListError)
         }
-        errors.append(contentsOf: lintBuildPhases(project: project))
-        errors.append(contentsOf: lintDependencies(project: project))
-        if let productReferenceError = lintProductReference(project: project) {
+        errors.append(contentsOf: lintBuildPhases(project: project, reference: reference))
+        errors.append(contentsOf: lintDependencies(project: project, reference: reference))
+        if let productReferenceError = lintProductReference(project: project, reference: reference) {
             errors.append(productReferenceError)
         }
         return errors
@@ -20,9 +20,9 @@ extension PBXTarget: ProjectLintable {
     
     // MARK: - Fileprivate
     
-    fileprivate func lintConfigurationList(project: PBXProj) -> LintError? {
+    fileprivate func lintConfigurationList(project: PBXProj, reference: String) -> LintError? {
         if let buildConfigurationList = buildConfigurationList {
-            let exists = project.configurationLists.contains(reference: buildConfigurationList)
+            let exists = project.objects.configurationLists.contains(reference: buildConfigurationList)
             if exists { return nil }
             return LintError.missingReference(objectType: String(describing: type(of: self)),
                                               objectReference: reference,
@@ -35,10 +35,10 @@ extension PBXTarget: ProjectLintable {
         }
     }
     
-    fileprivate func lintBuildPhases(project: PBXProj) -> [LintError] {
+    fileprivate func lintBuildPhases(project: PBXProj, reference: String) -> [LintError] {
         var errors: [LintError] = []
         buildPhases.forEach { (buildPhaseReference) in
-            let exists = project.buildPhases.contains(reference: buildPhaseReference)
+            let exists = project.objects.buildPhases.contains(reference: buildPhaseReference)
             if exists { return }
             errors.append(LintError.missingReference(objectType: String(describing: type(of: self)),
                                                      objectReference: reference,
@@ -47,10 +47,10 @@ extension PBXTarget: ProjectLintable {
         return errors
     }
     
-    fileprivate func lintDependencies(project: PBXProj) -> [LintError] {
+    fileprivate func lintDependencies(project: PBXProj, reference: String) -> [LintError] {
         var errors: [LintError] = []
         dependencies.forEach { (dependencyReference) in
-            let exists = project.targetDependencies.contains(reference: dependencyReference)
+            let exists = project.objects.targetDependencies.contains(reference: dependencyReference)
             if exists { return }
             errors.append(LintError.missingReference(objectType: String(describing: type(of: self)),
                                                      objectReference: reference,
@@ -59,9 +59,9 @@ extension PBXTarget: ProjectLintable {
         return errors
     }
     
-    fileprivate func lintProductReference(project: PBXProj) -> LintError? {
+    fileprivate func lintProductReference(project: PBXProj, reference: String) -> LintError? {
         guard let productReference = self.productReference else { return nil }
-        let exists = project.fileReferences.contains(reference: productReference)
+        let exists = project.objects.fileReferences.contains(reference: productReference)
         if exists { return nil }
         return LintError.missingReference(objectType: String(describing: type(of: self)),
                                           objectReference: reference,

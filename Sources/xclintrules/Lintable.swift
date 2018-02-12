@@ -18,6 +18,6 @@ public protocol ProjectLintable {
     ///
     /// - Parameter project: project used for linting.
     /// - Returns: error if the linting fails.
-    func lint(project: PBXProj) -> [LintError]
+    func lint(project: PBXProj, reference: String) -> [LintError]
     
 }
